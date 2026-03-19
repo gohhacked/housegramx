@@ -50,9 +50,9 @@
       ]
     }
   ],
-  "env": {
-    "NODE_ENV": "production",
-    "TELEGRAM_API_ID": "@telegram_api_id",
-    "TELEGRAM_API_HASH": "@telegram_api_hash"
+  "build": {
+    "env": {
+      "NODE_ENV": "production"
+    }
   }
 }
