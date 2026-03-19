@@ -3,6 +3,7 @@ import 'dotenv/config';
 
 import WatchFilePlugin from '@mytonwallet/webpack-watch-file-plugin';
 import StatoscopeWebpackPlugin from '@statoscope/webpack-plugin';
+import CopyWebpackPlugin from 'copy-webpack-plugin';
 import { statSync } from 'fs';
 import { GitRevisionPlugin } from 'git-revision-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
@@ -180,6 +181,15 @@ export default function createConfig(
     },
 
     plugins: [
+      new CopyWebpackPlugin({
+        patterns: [
+          { from: 'public', to: '.' },
+          { from: 'src/lib/rlottie/rlottie-wasm.wasm', to: '.' },
+          { from: 'node_modules/opus-recorder/dist/decoderWorker.min.wasm', to: '.' },
+          { from: 'node_modules/emoji-data-ios/img-apple-64', to: 'img-apple-64' },
+          { from: 'node_modules/emoji-data-ios/img-apple-160', to: 'img-apple-160' },
+        ],
+      }),
       // Clearing of the unused files for code highlight for smaller chunk count
       new ContextReplacementPlugin(
         /highlight\.js[\\/]lib[\\/]languages/,
