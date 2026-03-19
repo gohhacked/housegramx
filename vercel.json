@@ -1,15 +1,7 @@
 {
   "version": 2,
   "name": "housegramx",
-  "builds": [
-    {
-      "src": "package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "dist"
-      }
-    }
-  ],
+  "outputDirectory": "dist",
   "routes": [
     {
       "src": "/service-worker.js",
@@ -57,10 +49,5 @@
         }
       ]
     }
-  ],
-  "build": {
-    "env": {
-      "NODE_ENV": "production"
-    }
-  }
+  ]
 }
