@@ -1,0 +1,15 @@
+node_modules
+.cache
+.env
+.env.local
+.env.development
+.env.staging
+src/lib/gramjs/build/
+build-contest/
+tests/
+.idea
+*.iml
+dev/perf/screenshot*
+.DS_store
+*.log
+.husky
