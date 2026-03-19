@@ -1,7 +1,10 @@
 {
   "version": 2,
   "name": "housegramx",
+  "buildCommand": "npm run vercel-build",
   "outputDirectory": "dist",
+  "installCommand": "npm install",
+  "framework": null,
   "routes": [
     {
       "src": "/service-worker.js",
