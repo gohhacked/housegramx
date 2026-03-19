@@ -20,6 +20,14 @@
       "dest": "/service-worker.js"
     },
     {
+      "src": "/(.*\\.wasm)",
+      "headers": {
+        "Content-Type": "application/wasm",
+        "Cache-Control": "public, max-age=31536000, immutable"
+      },
+      "dest": "/$1"
+    },
+    {
       "src": "/(.*\\.(js|css|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot|mp3|mp4|webp|json|txt|xml|webmanifest))",
       "headers": {
         "Cache-Control": "public, max-age=31536000, immutable"

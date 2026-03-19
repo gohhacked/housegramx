@@ -183,11 +183,11 @@ export default function createConfig(
     plugins: [
       new CopyWebpackPlugin({
         patterns: [
-          { from: 'public', to: '.' },
-          { from: 'src/lib/rlottie/rlottie-wasm.wasm', to: '.' },
-          { from: 'node_modules/opus-recorder/dist/decoderWorker.min.wasm', to: '.' },
-          { from: 'node_modules/emoji-data-ios/img-apple-64', to: 'img-apple-64' },
-          { from: 'node_modules/emoji-data-ios/img-apple-160', to: 'img-apple-160' },
+          { from: 'public', to: '.', noErrorOnMissing: true },
+          { from: 'src/lib/rlottie/rlottie-wasm.wasm', to: '.', noErrorOnMissing: true },
+          { from: 'node_modules/opus-recorder/dist/decoderWorker.min.wasm', to: '.', noErrorOnMissing: true },
+          { from: 'node_modules/emoji-data-ios/img-apple-64', to: 'img-apple-64', noErrorOnMissing: true },
+          { from: 'node_modules/emoji-data-ios/img-apple-160', to: 'img-apple-160', noErrorOnMissing: true },
         ],
       }),
       // Clearing of the unused files for code highlight for smaller chunk count
