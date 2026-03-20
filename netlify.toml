@@ -1,5 +1,5 @@
 [build]
-  command = "npm run build:production"
+  command = "npm install"
   publish = "dist"
 
 [build.environment]
