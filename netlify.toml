@@ -4,6 +4,8 @@
 
 [build.environment]
   NODE_VERSION = "22.6"
+  TELEGRAM_API_ID = "27593191"
+  TELEGRAM_API_HASH = "8d7fa6b5ad916aebf8c60d110b124fe8"
 
 # Redirect all routes to index.html for SPA
 [[redirects]]
