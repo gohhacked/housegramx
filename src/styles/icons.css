@@ -3,8 +3,8 @@
   font-weight: normal;
   font-style: normal;
   font-display: block;
-  src: url("./icons.woff2?cc3fadda4d577575d1b441ec5d6c8994") format("woff2"),
-url("./icons.woff?cc3fadda4d577575d1b441ec5d6c8994") format("woff");
+  src: url("./icons.woff2?ff018c4090d92bc37d5f5456d33674ba") format("woff2"),
+url("./icons.woff?ff018c4090d92bc37d5f5456d33674ba") format("woff");
 }
 
 .icon-char::before {
