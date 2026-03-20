@@ -131,10 +131,6 @@ const LeftSideMenuItems = ({
     switchPermanentWebVersion('K');
   });
 
-  const handleOpenTipsChat = useLastCallback(() => {
-    openChatByUsername({ username: lang('TelegramFeaturesUsername') });
-  });
-
   const handleBugReportClick = useLastCallback(() => {
     openUrl({ url: FEEDBACK_URL });
   });
@@ -214,12 +210,6 @@ const LeftSideMenuItems = ({
       >
         <span className="menu-item-name capitalize">{lang('MenuAnimationsSwitch')}</span>
         <Toggle value={animationLevelValue} />
-      </MenuItem>
-      <MenuItem
-        icon="help"
-        onClick={handleOpenTipsChat}
-      >
-        {lang('MenuTelegramFeatures')}
       </MenuItem>
       <MenuItem
         icon="bug"
