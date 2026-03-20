@@ -266,34 +266,36 @@ export default function createConfig(
           },
         ],
       }),
-      new StatoscopeWebpackPlugin({
-        statsOptions: {
-          context: __dirname,
-        },
-        saveReportTo: path.resolve('./public/statoscope-report.html'),
-        saveStatsTo: path.resolve('./public/build-stats.json'),
-        normalizeStats: true,
-        open: false,
-        extensions: [new WebpackContextExtension()],
-      }),
-      new WatchFilePlugin({
-        rules: [
-          {
-            files: 'src/assets/localization/fallback.strings',
-            action: 'npm run lang:ts',
+      ...(mode === 'development' ? [
+        new StatoscopeWebpackPlugin({
+          statsOptions: {
+            context: __dirname,
           },
-          {
-            files: 'src/lib/gramjs/tl/static/**/*',
-            action: 'npm run gramjs:tl',
-            sharedAction: true,
-          },
-          {
-            files: 'src/assets/font-icons/*.svg',
-            action: 'npm run icons:build',
-            sharedAction: true,
-          },
-        ],
-      }),
+          saveReportTo: path.resolve('./public/statoscope-report.html'),
+          saveStatsTo: path.resolve('./public/build-stats.json'),
+          normalizeStats: true,
+          open: false,
+          extensions: [new WebpackContextExtension()],
+        }),
+        new WatchFilePlugin({
+          rules: [
+            {
+              files: 'src/assets/localization/fallback.strings',
+              action: 'npm run lang:ts',
+            },
+            {
+              files: 'src/lib/gramjs/tl/static/**/*',
+              action: 'npm run gramjs:tl',
+              sharedAction: true,
+            },
+            {
+              files: 'src/assets/font-icons/*.svg',
+              action: 'npm run icons:build',
+              sharedAction: true,
+            },
+          ],
+        }),
+      ] : []),
     ],
 
     devtool: 'source-map',
