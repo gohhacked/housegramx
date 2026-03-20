@@ -1,0 +1,2 @@
+(self.webpackChunkhousegramx=self.webpackChunkhousegramx||[]).push([[8233],{99040:e=>{e.exports=function(e){return{name:"Plain text",aliases:["text","txt"],disableAutodetect:!0}}}}]);
+//# sourceMappingURL=8233.a1a28e5bd3cccf77c390.js.map

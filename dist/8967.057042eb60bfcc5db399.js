@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkhousegramx=self.webpackChunkhousegramx||[]).push([[8967],{11348:(e,a,n)=>{n.d(a,{open:()=>h});var s=n(55962);async function h(e,a){await(0,s.invoke)("plugin:shell|open",{path:e,with:a})}}}]);
+//# sourceMappingURL=8967.057042eb60bfcc5db399.js.map

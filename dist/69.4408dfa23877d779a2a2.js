@@ -1,0 +1,2 @@
+(self.webpackChunkhousegramx=self.webpackChunkhousegramx||[]).push([[69],{67172:a=>{a.exports=function(a){return{name:"LDIF",contains:[{className:"attribute",match:"^dn(?=:)",relevance:10},{className:"attribute",match:"^\\w+(?=:)"},{className:"literal",match:"^-"},a.HASH_COMMENT_MODE]}}}}]);
+//# sourceMappingURL=69.4408dfa23877d779a2a2.js.map
