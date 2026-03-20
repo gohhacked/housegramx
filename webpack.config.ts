@@ -3,6 +3,7 @@ import 'dotenv/config';
 
 import WatchFilePlugin from '@mytonwallet/webpack-watch-file-plugin';
 import StatoscopeWebpackPlugin from '@statoscope/webpack-plugin';
+import CopyWebpackPlugin from 'copy-webpack-plugin';
 import { statSync } from 'fs';
 import { GitRevisionPlugin } from 'git-revision-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
@@ -233,6 +234,37 @@ export default function createConfig(
       }),
       new ProvidePlugin({
         Buffer: ['buffer', 'Buffer'],
+      }),
+      new CopyWebpackPlugin({
+        patterns: [
+          {
+            from: 'public',
+            to: '.',
+            globOptions: {
+              ignore: ['**/statoscope-report.html', '**/build-stats.json'],
+            },
+          },
+          {
+            from: 'src/lib/rlottie/rlottie-wasm.wasm',
+            to: 'rlottie-wasm.wasm',
+            noErrorOnMissing: true,
+          },
+          {
+            from: 'node_modules/opus-recorder/dist/decoderWorker.min.wasm',
+            to: 'decoderWorker.min.wasm',
+            noErrorOnMissing: true,
+          },
+          {
+            from: 'node_modules/emoji-data-ios/img-apple-64',
+            to: 'img-apple-64',
+            noErrorOnMissing: true,
+          },
+          {
+            from: 'node_modules/emoji-data-ios/img-apple-160',
+            to: 'img-apple-160',
+            noErrorOnMissing: true,
+          },
+        ],
       }),
       new StatoscopeWebpackPlugin({
         statsOptions: {
