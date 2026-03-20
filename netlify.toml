@@ -1,5 +1,5 @@
 [build]
-  command = "bash build.sh"
+  command = "echo 'Deploy ready'"
   publish = "dist"
 
 [build.environment]
