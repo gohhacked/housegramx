@@ -5,7 +5,6 @@ import WatchFilePlugin from '@mytonwallet/webpack-watch-file-plugin';
 import StatoscopeWebpackPlugin from '@statoscope/webpack-plugin';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 import { statSync } from 'fs';
-import { GitRevisionPlugin } from 'git-revision-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import path from 'path';
@@ -221,11 +220,7 @@ export default function createConfig(
       // Updates each dev re-build to provide current git branch or commit hash
       new DefinePlugin({
         APP_VERSION: JSON.stringify(appVersion),
-        APP_REVISION: DefinePlugin.runtimeValue(() => {
-          const { branch, commit } = getGitMetadata();
-          const shouldDisplayOnlyCommit = APP_ENV === 'staging' || !branch || branch === 'HEAD';
-          return JSON.stringify(shouldDisplayOnlyCommit ? commit : `${branch}#${commit}`);
-        }, mode === 'development' ? true : []),
+        APP_REVISION: JSON.stringify(mode === 'production' ? 'production' : 'dev'),
         CHANGELOG_DATETIME: DefinePlugin.runtimeValue(() => {
           return JSON.stringify(statSync(CHANGELOG_PATH, { throwIfNoEntry: false })?.mtime.getTime());
         }, {
@@ -298,7 +293,7 @@ export default function createConfig(
       ] : []),
     ],
 
-    devtool: 'source-map',
+    devtool: mode === 'production' ? false : 'source-map',
 
     optimization: {
       splitChunks: {
@@ -314,17 +309,6 @@ export default function createConfig(
       }),
     },
   };
-}
-
-function getGitMetadata() {
-  try {
-    const gitRevisionPlugin = new GitRevisionPlugin();
-    const branch = HEAD || gitRevisionPlugin.branch();
-    const commit = gitRevisionPlugin.commithash()?.substring(0, 7);
-    return { branch, commit };
-  } catch (e) {
-    return { branch: 'main', commit: 'unknown' };
-  }
 }
 
 class WebpackContextExtension {
