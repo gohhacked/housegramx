@@ -1,59 +1,52 @@
 const fs = require('fs');
 const path = require('path');
 
-function copyDir(src, dest) {
+console.log('=== Starting file copy ===');
+
+function copyRecursive(src, dest) {
   if (!fs.existsSync(src)) {
-    console.log(`Source directory not found: ${src}`);
+    console.log(`Skip: ${src} (not found)`);
     return;
   }
   
-  if (!fs.existsSync(dest)) {
-    fs.mkdirSync(dest, { recursive: true });
-  }
+  const stats = fs.statSync(src);
   
-  const entries = fs.readdirSync(src, { withFileTypes: true });
-  
-  for (const entry of entries) {
-    const srcPath = path.join(src, entry.name);
-    const destPath = path.join(dest, entry.name);
-    
-    if (entry.isDirectory()) {
-      copyDir(srcPath, destPath);
-    } else {
-      fs.copyFileSync(srcPath, destPath);
+  if (stats.isDirectory()) {
+    if (!fs.existsSync(dest)) {
+      fs.mkdirSync(dest, { recursive: true });
     }
-  }
-}
-
-function copyFile(src, dest) {
-  if (fs.existsSync(src)) {
-    const destDir = path.dirname(dest);
-    if (!fs.existsSync(destDir)) {
-      fs.mkdirSync(destDir, { recursive: true });
-    }
-    fs.copyFileSync(src, dest);
-    console.log(`Copied: ${src} -> ${dest}`);
+    fs.readdirSync(src).forEach(item => {
+      copyRecursive(path.join(src, item), path.join(dest, item));
+    });
   } else {
-    console.log(`File not found: ${src}`);
+    fs.copyFileSync(src, dest);
   }
 }
 
-const distDir = process.argv[2] || 'dist';
-
-console.log(`Copying files to ${distDir}...`);
+const distDir = 'dist';
 
 // Copy public folder
-console.log('Copying public folder...');
-copyDir('./public', distDir);
+console.log('Copying public...');
+copyRecursive('./public', distDir);
 
 // Copy WASM files
-console.log('Copying WASM files...');
-copyFile('./src/lib/rlottie/rlottie-wasm.wasm', path.join(distDir, 'rlottie-wasm.wasm'));
-copyFile('./node_modules/opus-recorder/dist/decoderWorker.min.wasm', path.join(distDir, 'decoderWorker.min.wasm'));
+console.log('Copying WASM...');
+if (fs.existsSync('./src/lib/rlottie/rlottie-wasm.wasm')) {
+  fs.copyFileSync('./src/lib/rlottie/rlottie-wasm.wasm', path.join(distDir, 'rlottie-wasm.wasm'));
+}
+
+if (fs.existsSync('./node_modules/opus-recorder/dist/decoderWorker.min.wasm')) {
+  fs.copyFileSync('./node_modules/opus-recorder/dist/decoderWorker.min.wasm', path.join(distDir, 'decoderWorker.min.wasm'));
+}
 
 // Copy emoji folders
-console.log('Copying emoji folders...');
-copyDir('./node_modules/emoji-data-ios/img-apple-64', path.join(distDir, 'img-apple-64'));
-copyDir('./node_modules/emoji-data-ios/img-apple-160', path.join(distDir, 'img-apple-160'));
+console.log('Copying emoji...');
+if (fs.existsSync('./node_modules/emoji-data-ios/img-apple-64')) {
+  copyRecursive('./node_modules/emoji-data-ios/img-apple-64', path.join(distDir, 'img-apple-64'));
+}
 
-console.log('Files copied successfully!');
+if (fs.existsSync('./node_modules/emoji-data-ios/img-apple-160')) {
+  copyRecursive('./node_modules/emoji-data-ios/img-apple-160', path.join(distDir, 'img-apple-160'));
+}
+
+console.log('=== Copy complete ===');
