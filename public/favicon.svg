@@ -1,7 +1,13 @@
-<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
-  <rect width="512" height="512" fill="#FF4444" rx="100"/>
-  <g transform="translate(256, 256)">
-    <path d="M -60 -30 L 50 0 L -60 30 L -30 0 Z" fill="#ffffff" stroke="#ffffff" stroke-width="6" stroke-linejoin="round"/>
-    <path d="M -30 -15 L 30 0 L -30 15" fill="none" stroke="#1a1a1a" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-  </g>
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Red house -->
+  <rect x="40" y="80" width="120" height="80" fill="#FF4444" rx="8"/>
+  <!-- Roof -->
+  <polygon points="100,30 40,80 160,80" fill="#CC0000"/>
+  <!-- Door -->
+  <rect x="85" y="110" width="30" height="50" fill="#8B0000" rx="4"/>
+  <!-- Door handle -->
+  <circle cx="112" cy="135" r="3" fill="#FFD700"/>
+  <!-- Windows -->
+  <rect x="55" y="95" width="20" height="20" fill="#87CEEB" rx="2"/>
+  <rect x="125" y="95" width="20" height="20" fill="#87CEEB" rx="2"/>
 </svg>
