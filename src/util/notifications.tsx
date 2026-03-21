@@ -26,6 +26,7 @@ import {
   selectSender,
   selectSettingsKeys,
   selectTopicFromMessage,
+  selectUser,
 } from '../global/selectors';
 import { callApi } from '../api/gramjs';
 import { IS_TAURI } from './browser/globalEnvironment';
@@ -299,6 +300,18 @@ function checkIfShouldNotify(chat: ApiChat, message: Partial<ApiMessage>) {
     || chat.isNotJoined || !chat.isListed || selectIsChatWithSelf(global, chat.id)) {
     return false;
   }
+
+  // Fix #496: Ensure notifications are shown for messages from strangers/non-contacts
+  // Check if this is a private chat with a non-contact user
+  if (chat.type === 'chatTypePrivate' && !message.isOutgoing) {
+    const user = selectUser(global, chat.id);
+    // Always show notifications for private chats, regardless of contact status
+    // unless explicitly muted
+    if (user && !isMuted) {
+      return true;
+    }
+  }
+
   // On touch devices show notifications when chat is not active
   if (IS_TOUCH_ENV) {
     const {

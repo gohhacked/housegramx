@@ -7,13 +7,28 @@ try {
   RE_NOT_LETTER = /[^\wа-яёґєії]+/i;
 }
 
+// Normalize RTL text (Arabic, Hebrew, etc.) for proper search
+function normalizeRtlText(text: string): string {
+  // Remove RTL marks and normalize spacing
+  return text
+    .replace(/[\u200E\u200F\u202A-\u202E]/g, '') // Remove RTL/LTR marks
+    .replace(/\u0640/g, '') // Remove Arabic Tatweel
+    .trim();
+}
+
 export default function searchWords(haystack: string, needle: string | string[]) {
   if (!haystack || !needle) {
     return false;
   }
 
-  const needleWords = typeof needle === 'string' ? needle.toLowerCase().split(RE_NOT_LETTER) : needle;
-  const haystackLower = haystack.toLowerCase();
+  // Normalize RTL text for both haystack and needle
+  const normalizedHaystack = normalizeRtlText(haystack);
+  const normalizedNeedle = typeof needle === 'string' ? normalizeRtlText(needle) : needle;
+
+  const needleWords = typeof normalizedNeedle === 'string' 
+    ? normalizedNeedle.toLowerCase().split(RE_NOT_LETTER).filter(Boolean)
+    : normalizedNeedle;
+  const haystackLower = normalizedHaystack.toLowerCase();
 
   // @optimization
   if (needleWords.length === 1 && !haystackLower.includes(needleWords[0])) {
@@ -28,7 +43,7 @@ export default function searchWords(haystack: string, needle: string | string[])
     }
 
     if (!haystackWords) {
-      haystackWords = haystackLower.split(RE_NOT_LETTER);
+      haystackWords = haystackLower.split(RE_NOT_LETTER).filter(Boolean);
     }
 
     return haystackWords.some((haystackWord) => haystackWord.startsWith(needleWord));

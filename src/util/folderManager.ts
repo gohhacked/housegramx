@@ -559,13 +559,21 @@ function buildChatSummary<T extends GlobalState>(
   const lastMessageInSaved = selectChatLastMessage(global, chat.id, 'saved');
   const orderInSaved = lastMessageInSaved?.date || 0;
 
+  // Fix #495 & #496: Ensure unread notifications are shown for messages from strangers/non-contacts
+  // For private chats with non-contacts, don't apply default mute settings
+  let isMuted = getIsChatMuted(chat, notifyDefaults, notifyExceptions?.[chat.id]);
+  if (type === 'chatTypePrivate' && userInfo && !userInfo.isContact && !notifyExceptions?.[chat.id]) {
+    // For non-contacts without explicit notification settings, don't mute by default
+    isMuted = false;
+  }
+
   return {
     id,
     type,
     isListedInAll: Boolean(!isRestricted && !isNotJoined && !migratedTo && !shouldHideServiceChat && !isRemovedFromAll),
     isListedInSaved: !isRemovedFromSaved,
     isArchived: folderId === ARCHIVED_FOLDER_ID,
-    isMuted: getIsChatMuted(chat, notifyDefaults, notifyExceptions?.[chat.id]),
+    isMuted,
     isUnread: Boolean(unreadCount || unreadMentionsCount || hasUnreadMark),
     unreadCount,
     unreadMentionsCount,

@@ -9,6 +9,7 @@ import type { AnimationLevel, ThemeKey } from '../../../types';
 import {
   ANIMATION_LEVEL_MAX,
   ANIMATION_LEVEL_MIN,
+  APP_VERSION,
   ARCHIVED_FOLDER_ID,
   BETA_CHANGELOG_URL,
   FEEDBACK_URL,
@@ -253,6 +254,13 @@ const LeftSideMenuItems = ({
           {lang('MenuInstallApp')}
         </MenuItem>
       )}
+      <MenuSeparator />
+      <MenuItem
+        disabled
+        icon="info"
+      >
+        <span className="menu-item-name">{`Version ${APP_VERSION}`}</span>
+      </MenuItem>
     </>
   );
 };

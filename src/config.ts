@@ -8,6 +8,7 @@ import type {
 
 export const APP_CODE_NAME = 'X';
 export const APP_NAME = process.env.APP_NAME || `HouseGramX`;
+export const APP_VERSION = '12.0.8';
 
 export const PRODUCTION_HOSTNAME = 'web.telegram.org';
 export const PRODUCTION_URL = 'https://web.telegram.org/a';

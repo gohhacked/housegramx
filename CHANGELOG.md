@@ -1,3 +1,11 @@
+## 12.0.8 (2026-03-21)
+
+### 💪 **Stronger**
+* Fixed missing unread message notifications from colleagues and strangers (#496)
+* Fixed missing message badge icon when messages are sent by strangers (#495)
+* Fixed RTL (Arabic) search breaking the search UI (#492)
+* Various performance optimizations and stability improvements
+
 ## 10.0.0 (2023-08-14)
 
 **Introducing Telegram Web A v10.0!**
