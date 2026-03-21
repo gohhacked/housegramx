@@ -1,2 +1,0 @@
-(self.webpackChunkhousegramx=self.webpackChunkhousegramx||[]).push([[8214],{38813:s=>{s.exports=function(s){return{name:"Shell Session",aliases:["console","shellsession"],contains:[{className:"meta.prompt",begin:/^\s{0,3}[/~\w\d[\]()@-]*[>%$#][ ]?/,starts:{end:/[^\\](?=\s*$)/,subLanguage:"bash"}}]}}}}]);
-//# sourceMappingURL=8214.55f579f432a34a16f203.js.map

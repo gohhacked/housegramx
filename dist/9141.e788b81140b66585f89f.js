@@ -1,2 +1,0 @@
-(self.webpackChunkhousegramx=self.webpackChunkhousegramx||[]).push([[9141],{10164:e=>{e.exports=function(e){return{name:"VBScript in HTML",subLanguage:"xml",contains:[{begin:"<%",end:"%>",subLanguage:"vbscript"}]}}}}]);
-//# sourceMappingURL=9141.e788b81140b66585f89f.js.map

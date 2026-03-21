@@ -1,2 +1,0 @@
-"use strict";(self.webpackChunkhousegramx=self.webpackChunkhousegramx||[]).push([[2263],{82263:(e,s,a)=>{a.d(s,{relaunch:()=>n});var u=a(55962);async function n(){await(0,u.invoke)("plugin:process|restart")}}}]);
-//# sourceMappingURL=2263.beb20b2fd549069f54a7.js.map
