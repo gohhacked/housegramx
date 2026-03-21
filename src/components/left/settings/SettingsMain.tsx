@@ -5,7 +5,7 @@ import { getActions, withGlobal } from '../../../global';
 import type { ApiStarsAmount, ApiTonAmount } from '../../../api/types';
 import { SettingsScreens } from '../../../types';
 
-import { FAQ_URL, PRIVACY_URL, TON_CURRENCY_CODE } from '../../../config';
+import { FAQ_URL, PRIVACY_URL, TON_CURRENCY_CODE, HOUSEGRAMX_ABOUT_URL } from '../../../config';
 import { formatStarsAmount } from '../../../global/helpers/payments';
 import {
   selectIsGiveawayGiftsPurchaseAvailable,
@@ -242,6 +242,14 @@ const SettingsMain: FC<OwnProps & StateProps> = ({
           onClick={() => openUrl({ url: PRIVACY_URL })}
         >
           {lang('MenuPrivacyPolicy')}
+        </ListItem>
+        <ListItem
+          icon="info"
+          narrow
+          className="housegramx-about"
+          onClick={() => openUrl({ url: HOUSEGRAMX_ABOUT_URL })}
+        >
+          О HouseGramX
         </ListItem>
       </div>
       <ConfirmDialog

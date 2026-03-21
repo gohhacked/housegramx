@@ -358,6 +358,7 @@ export const LANG_PACKS = ['android', 'ios', 'tdesktop', 'macos'] as const;
 export const FEEDBACK_URL = 'https://bugs.telegram.org/?tag_ids=41&sort=time';
 export const FAQ_URL = 'https://telegram.org/faq';
 export const PRIVACY_URL = 'https://telegram.org/privacy';
+export const HOUSEGRAMX_ABOUT_URL = 'https://housegramx-welcome.vercel.app';
 export const MINI_APP_TOS_URL = 'https://telegram.org/tos/mini-apps';
 export const FRAGMENT_ADS_URL = 'https://fragment.com/ads';
 export const GENERAL_TOPIC_ID = 1;
