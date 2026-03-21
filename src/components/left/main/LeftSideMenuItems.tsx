@@ -81,6 +81,7 @@ const LeftSideMenuItems = ({
     openChatByUsername,
     openUrl,
     openChatWithInfo,
+    showNotification,
   } = getActions();
   const lang = useLang();
 
@@ -133,11 +134,18 @@ const LeftSideMenuItems = ({
   });
 
   const handleOpenTipsChat = useLastCallback(() => {
-    openChatByUsername({ username: lang('HouseGramXFeaturesUsername') });
+    openChatByUsername({ username: 'HouseGramXFeatures' });
   });
 
   const handleBugReportClick = useLastCallback(() => {
     openUrl({ url: FEEDBACK_URL });
+  });
+
+  const handleVersionClick = useLastCallback(() => {
+    showNotification({
+      title: `HouseGramX v${APP_VERSION}`,
+      message: `✅ Fixed unread notifications from strangers\n✅ Fixed message badge for non-contacts\n✅ Fixed RTL (Arabic) search`,
+    });
   });
 
   return (
@@ -220,7 +228,7 @@ const LeftSideMenuItems = ({
         icon="help"
         onClick={handleOpenTipsChat}
       >
-        {lang('MenuHouseGramXFeatures')}
+        HouseGramX Features
       </MenuItem>
       <MenuItem
         icon="bug"
@@ -256,8 +264,8 @@ const LeftSideMenuItems = ({
       )}
       <MenuSeparator />
       <MenuItem
-        disabled
         icon="info"
+        onClick={handleVersionClick}
       >
         <span className="menu-item-name">{`Version ${APP_VERSION}`}</span>
       </MenuItem>
