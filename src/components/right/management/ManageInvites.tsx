@@ -26,6 +26,7 @@ import AnimatedIconWithPreview from '../../common/AnimatedIconWithPreview';
 import Icon from '../../common/icons/Icon';
 import LinkField from '../../common/LinkField';
 import NothingFound from '../../common/NothingFound';
+import ResetLinkButton from '../../common/ResetLinkButton';
 import ConfirmDialog from '../../ui/ConfirmDialog';
 import ListItem, { type MenuItemContextAction } from '../../ui/ListItem';
 
@@ -145,6 +146,12 @@ const ManageInvites: FC<OwnProps & StateProps> = ({
       askToRevoke(primaryInvite);
     }
   }, [askToRevoke, primaryInvite]);
+
+  const handleResetLink = useCallback(() => {
+    showNotification({
+      message: 'Channel link has been reset!',
+    });
+  }, [showNotification]);
 
   const handleDeleteAllRevoked = useCallback(() => {
     deleteRevokedExportedChatInvites({ chatId });
@@ -291,6 +298,9 @@ const ManageInvites: FC<OwnProps & StateProps> = ({
               onRevoke={!chat?.usernames ? handlePrimaryRevoke : undefined}
               title={chat?.usernames ? oldLang('PublicLink') : oldLang('lng_create_permanent_link_title')}
             />
+            <div style={{ marginTop: '1rem' }}>
+              <ResetLinkButton onReset={handleResetLink} />
+            </div>
           </div>
         )}
         <div className="section" teactFastList>
