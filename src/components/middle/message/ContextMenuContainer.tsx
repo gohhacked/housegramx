@@ -163,6 +163,7 @@ type StateProps = {
   userFullName?: string;
   canGift?: boolean;
   savedDialogId?: string;
+  canCorrectText?: boolean;
 };
 
 const selection = window.getSelection();
@@ -657,6 +658,12 @@ const ContextMenuContainer: FC<OwnProps & StateProps> = ({
     closeMenu();
   });
 
+  const handleCorrectText = useLastCallback(() => {
+    if (!message.content.text?.text) return;
+    // TODO: Implement text correction modal
+    closeMenu();
+  });
+
   const reportMessageIds = useMemo(() => (album ? album.messages : [message]).map(({ id }) => id), [album, message]);
 
   const handleReport = useLastCallback(() => {
@@ -764,6 +771,7 @@ const ContextMenuContainer: FC<OwnProps & StateProps> = ({
         onTranslate={handleTranslate}
         onShowOriginal={handleShowOriginal}
         onSelectLanguage={handleSelectLanguage}
+        onCorrectText={handleCorrectText}
         userFullName={userFullName}
         canGift={canGift}
       />
@@ -902,6 +910,8 @@ export default memo(withGlobal<OwnProps>(
     const canAppendTodoList = message.content.todo?.todo.othersCanAppend
       && message.content.todo?.todo.items?.length < todoItemsMax;
 
+    const canCorrectText = Boolean(message.content.text?.text && !isScheduled && !isLocal);
+
     return {
       threadId,
       chat,
@@ -960,6 +970,7 @@ export default memo(withGlobal<OwnProps>(
       canGift,
       savedDialogId,
       webPage,
+      canCorrectText,
     };
   },
 )(ContextMenuContainer));

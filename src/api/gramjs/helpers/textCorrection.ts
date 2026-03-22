@@ -1,6 +1,7 @@
-// Google Gemini API for text correction
-const GEMINI_API_KEY = process.env.REACT_APP_GEMINI_API_KEY || '';
-const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent';
+// Text correction via secure backend
+// API key is stored server-side, never exposed to client
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001';
+const CORRECT_TEXT_ENDPOINT = `${API_BASE_URL}/api/correct-text`;
 
 export interface TextCorrectionResult {
   original: string;
@@ -9,61 +10,44 @@ export interface TextCorrectionResult {
   isChanged: boolean;
 }
 
+/**
+ * Corrects text using backend API (secure)
+ * API key is stored server-side, never exposed to client
+ */
 export async function correctTextWithAI(text: string): Promise<TextCorrectionResult> {
-  if (!GEMINI_API_KEY) {
-    throw new Error('Gemini API key is not configured');
+  if (!text || text.trim().length === 0) {
+    throw new Error('Text cannot be empty');
+  }
+
+  if (text.length > 5000) {
+    throw new Error('Text is too long (max 5000 characters)');
   }
 
   try {
-    const prompt = `You are a professional text editor. Correct the following text for grammar, spelling, and punctuation errors. 
-Return ONLY the corrected text without any explanation or markdown formatting.
-
-Original text:
-"${text}"
-
-Corrected text:`;
-
-    const response = await fetch(`${GEMINI_API_URL}?key=${GEMINI_API_KEY}`, {
+    const response = await fetch(CORRECT_TEXT_ENDPOINT, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        contents: [
-          {
-            parts: [
-              {
-                text: prompt,
-              },
-            ],
-          },
-        ],
-        generationConfig: {
-          temperature: 0.3,
-          topK: 40,
-          topP: 0.95,
-          maxOutputTokens: 1024,
-        },
-      }),
+      body: JSON.stringify({ text }),
     });
 
     if (!response.ok) {
-      throw new Error(`API error: ${response.statusText}`);
+      const errorData = await response.json();
+      throw new Error(errorData.error || `API error: ${response.statusText}`);
     }
 
     const data = await response.json();
-    const correctedText = data.candidates?.[0]?.content?.parts?.[0]?.text?.trim() || '';
+    const { original, corrected, isChanged } = data;
 
-    if (!correctedText) {
+    if (!corrected) {
       throw new Error('Empty response from API');
     }
 
-    const isChanged = correctedText !== text;
-
     return {
-      original: text,
-      corrected: correctedText,
-      changes: isChanged ? [text, correctedText] : [],
+      original,
+      corrected,
+      changes: isChanged ? [original, corrected] : [],
       isChanged,
     };
   } catch (error) {
