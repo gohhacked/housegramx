@@ -150,6 +150,7 @@ const LeftSideMenuItems = ({
 
   return (
     <>
+      {/* Account Section */}
       {IS_MULTIACCOUNT_SUPPORTED && currentUser && (
         <>
           <AccountMenuItems
@@ -160,6 +161,8 @@ const LeftSideMenuItems = ({
           <MenuSeparator />
         </>
       )}
+
+      {/* Main Navigation */}
       <MenuItem
         icon="user"
         onClick={handleSelectMyProfile}
@@ -189,16 +192,26 @@ const LeftSideMenuItems = ({
       >
         {lang('MenuContacts')}
       </MenuItem>
-      {bots.map((bot) => (
-        <AttachBotItem
-          bot={bot}
-          theme={theme}
-          isInSideMenu
-          canShowNew
-          onMenuOpened={onBotMenuOpened}
-          onMenuClosed={onBotMenuClosed}
-        />
-      ))}
+
+      {/* Attach Bots */}
+      {bots.length > 0 && (
+        <>
+          <MenuSeparator />
+          {bots.map((bot) => (
+            <AttachBotItem
+              bot={bot}
+              theme={theme}
+              isInSideMenu
+              canShowNew
+              onMenuOpened={onBotMenuOpened}
+              onMenuClosed={onBotMenuClosed}
+            />
+          ))}
+        </>
+      )}
+
+      {/* Settings & Preferences */}
+      <MenuSeparator />
       <MenuItem
         icon="settings"
         onClick={onSelectSettings}
@@ -224,6 +237,9 @@ const LeftSideMenuItems = ({
         <span className="menu-item-name capitalize">{lang('MenuAnimationsSwitch')}</span>
         <Toggle value={animationLevelValue} />
       </MenuItem>
+
+      {/* Support & Help */}
+      <MenuSeparator />
       <MenuItem
         icon="help"
         onClick={handleOpenTipsChat}
@@ -244,24 +260,33 @@ const LeftSideMenuItems = ({
           {lang('MenuBetaChangelog')}
         </MenuItem>
       )}
-      {withOtherVersions && (
-        <MenuItem
-          icon="K"
-          isCharIcon
-          href={`${WEB_VERSION_BASE}k`}
-          onClick={handleSwitchToWebK}
-        >
-          {lang('MenuSwitchToK')}
-        </MenuItem>
+
+      {/* Additional Options */}
+      {(withOtherVersions || canInstall) && (
+        <>
+          <MenuSeparator />
+          {withOtherVersions && (
+            <MenuItem
+              icon="K"
+              isCharIcon
+              href={`${WEB_VERSION_BASE}k`}
+              onClick={handleSwitchToWebK}
+            >
+              {lang('MenuSwitchToK')}
+            </MenuItem>
+          )}
+          {canInstall && (
+            <MenuItem
+              icon="install"
+              onClick={getPromptInstall()}
+            >
+              {lang('MenuInstallApp')}
+            </MenuItem>
+          )}
+        </>
       )}
-      {canInstall && (
-        <MenuItem
-          icon="install"
-          onClick={getPromptInstall()}
-        >
-          {lang('MenuInstallApp')}
-        </MenuItem>
-      )}
+
+      {/* Footer */}
       <MenuSeparator />
       <MenuItem
         icon="info"
