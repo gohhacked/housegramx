@@ -150,6 +150,24 @@ const LeftSideMenuItems = ({
 
   return (
     <>
+      {/* Home Icon */}
+      <MenuItem
+        icon="info"
+        className="menu-home-item"
+      >
+        <span style={{
+          background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+          WebkitBackgroundClip: 'text',
+          WebkitTextFillColor: 'transparent',
+          fontWeight: 600,
+          fontSize: '0.9375rem',
+        } as React.CSSProperties}
+        >
+          🏠 HouseGramX
+        </span>
+      </MenuItem>
+      <MenuSeparator />
+
       {/* Account Section */}
       {IS_MULTIACCOUNT_SUPPORTED && currentUser && (
         <>
