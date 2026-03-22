@@ -136,6 +136,8 @@ type OwnProps = {
   onReactionPickerOpen?: (position: IAnchorPosition) => void;
   userFullName?: string;
   canGift?: boolean;
+  canCorrectText?: boolean;
+  onCorrectText?: NoneToVoidFunction;
 };
 
 const SCROLLBAR_WIDTH = 10;
@@ -230,6 +232,8 @@ const MessageContextMenu: FC<OwnProps> = ({
   onSelectLanguage,
   userFullName,
   canGift,
+  canCorrectText,
+  onCorrectText,
 }) => {
   const {
     showNotification, openStickerSet, openCustomEmojiSets, loadStickers, openGiftModal,
@@ -432,6 +436,11 @@ const MessageContextMenu: FC<OwnProps> = ({
         )}
         {canSelectLanguage && (
           <MenuItem icon="web" onClick={onSelectLanguage}>{oldLang('lng_settings_change_lang')}</MenuItem>
+        )}
+        {canCorrectText && (
+          <MenuItem icon="edit" onClick={onCorrectText}>
+            Correct Text with AI
+          </MenuItem>
         )}
         {copyOptions.map((option) => (
           <MenuItem
