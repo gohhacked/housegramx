@@ -8,6 +8,14 @@ import {
 import { addExtraClass } from '../../lib/teact/teact-dom';
 import { getActions, getGlobal, withGlobal } from '../../global';
 
+import {
+  beginHeavyAnimation,
+  memo, useEffect, useLayoutEffect,
+  useRef, useState,
+} from '../../lib/teact/teact';
+import { addExtraClass } from '../../lib/teact/teact-dom';
+import { getActions, getGlobal, withGlobal } from '../../global';
+
 import type { ApiChatFolder, ApiLimitTypeWithModal, ApiUser } from '../../api/types';
 import type { TabState } from '../../global/types';
 
@@ -78,17 +86,20 @@ import AttachBotRecipientPicker from './AttachBotRecipientPicker.async';
 import BotTrustModal from './BotTrustModal.async';
 import DeleteFolderDialog from './DeleteFolderDialog.async';
 import Dialogs from './Dialogs.async';
-import DownloadManager from './DownloadManager';
-import DraftRecipientPicker from './DraftRecipientPicker.async';
-import FoldersSidebar from './FoldersSidebar';
-import ForwardRecipientPicker from './ForwardRecipientPicker.async';
-import GameModal from './GameModal';
+import PremiumLimitReachedModal from './premium/common/PremiumLimitReachedModal.async';
+import GiveawayModal from './premium/GiveawayModal.async';
+import PremiumMainModal from './premium/PremiumMainModal.async';
+import AdminPanel from '../admin/AdminPanel.async';
+import StarsGiftingPickerModal from './premium/StarsGiftingPickerModal.async';
+import SafeLinkModal from './SafeLinkModal.async';rsGiftingPickerModal.async';
+import SafeLinkModal from './SafeLinkModal.async';rsGiftingPickerModal.async';
 import HistoryCalendar from './HistoryCalendar.async';
 import NewContactModal from './NewContactModal.async';
 import Notifications from './Notifications.async';
 import PremiumLimitReachedModal from './premium/common/PremiumLimitReachedModal.async';
 import GiveawayModal from './premium/GiveawayModal.async';
 import PremiumMainModal from './premium/PremiumMainModal.async';
+import AdminPanel from '../admin/AdminPanel.async';
 import StarsGiftingPickerModal from './premium/StarsGiftingPickerModal.async';
 import SafeLinkModal from './SafeLinkModal.async';
 import ConfettiContainer from './visualEffects/ConfettiContainer';
@@ -115,12 +126,15 @@ type StateProps = {
   safeLinkModalUrl?: string;
   isHistoryCalendarOpen: boolean;
   shouldSkipHistoryAnimations?: boolean;
-  openedStickerSetShortName?: string;
-  openedCustomEmojiSetIds?: string[];
-  activeGroupCallId?: string;
-  isServiceChatReady?: boolean;
-  wasTimeFormatSetManually?: boolean;
-  isPhoneCallActive?: boolean;
+  gameTitle?: string;
+  isRatePhoneCallModalOpen?: boolean;
+  isPremiumModalOpen?: boolean;
+  isAdminPanelOpen?: boolean;
+  botTrustRequest?: TabState['botTrustRequest'];
+  isAdminPanelOpen?: boolean;
+  botTrustRequest?: TabState['botTrustRequest'];
+  botTrustRequestBot?: ApiUser;
+  botTrustRequest?: TabState['botTrustRequest'];
   addedSetIds?: string[];
   addedCustomEmojiIds?: string[];
   newContactUserId?: string;
@@ -129,6 +143,7 @@ type StateProps = {
   gameTitle?: string;
   isRatePhoneCallModalOpen?: boolean;
   isPremiumModalOpen?: boolean;
+  isAdminPanelOpen?: boolean;
   botTrustRequest?: TabState['botTrustRequest'];
   botTrustRequestBot?: ApiUser;
   requestedAttachBotInChat?: TabState['requestedAttachBotInChat'];
@@ -170,14 +185,16 @@ const Main = ({
   isHistoryCalendarOpen,
   shouldSkipHistoryAnimations,
   limitReached,
-  openedStickerSetShortName,
-  openedCustomEmojiSetIds,
-  isServiceChatReady,
-  withInterfaceAnimations,
-  wasTimeFormatSetManually,
-  addedSetIds,
-  addedCustomEmojiIds,
-  isPhoneCallActive,
+  requestedAttachBotInChat,
+  requestedDraft,
+  isPremiumModalOpen,
+  isAdminPanelOpen,
+  isGiveawayModalOpen,
+  isDeleteMessageModalOpen,
+  requestedDraft,
+  isPremiumModalOpen,
+  isAdminPanelOpen,
+  isGiveawayModalOpen,
   newContactUserId,
   newContactByPhoneNumber,
   openedGame,
@@ -188,6 +205,7 @@ const Main = ({
   requestedAttachBotInChat,
   requestedDraft,
   isPremiumModalOpen,
+  isAdminPanelOpen,
   isGiveawayModalOpen,
   isDeleteMessageModalOpen,
   isStarsGiftingPickerModal,
@@ -579,16 +597,19 @@ const Main = ({
       />
       {activeGroupCallId && <GroupCall groupCallId={activeGroupCallId} />}
       <ActiveCallHeader isActive={Boolean(activeGroupCallId || isPhoneCallActive)} />
-      <NewContactModal
-        isOpen={Boolean(newContactUserId || newContactByPhoneNumber)}
-        userId={newContactUserId}
-        isByPhoneNumber={newContactByPhoneNumber}
+      <AttachBotRecipientPicker requestedAttachBotInChat={requestedAttachBotInChat} />
+      <MessageListHistoryHandler />
+      <PremiumMainModal isOpen={isPremiumModalOpen} />
+      <AdminPanel isOpen={isAdminPanelOpen} />
+      <GiveawayModal isOpen={isGiveawayModalOpen} />
       />
       <GameModal openedGame={openedGame} gameTitle={gameTitle} />
-      <DownloadManager />
-      <ConfettiContainer />
-      {IS_WAVE_TRANSFORM_SUPPORTED && <WaveContainer />}
-      <SnapEffectContainer />
+      <AttachBotRecipientPicker requestedAttachBotInChat={requestedAttachBotInChat} />
+      <MessageListHistoryHandler />
+      <PremiumMainModal isOpen={isPremiumModalOpen} />
+      <AdminPanel isOpen={isAdminPanelOpen} />
+      <GiveawayModal isOpen={isGiveawayModalOpen} />
+      <GiveawayModal isOpen={isGiveawayModalOpen} />
       <PhoneCall isActive={isPhoneCallActive} />
       <UnreadCount isForAppBadge />
       <RatePhoneCallModal isOpen={isRatePhoneCallModalOpen} />
@@ -597,27 +618,6 @@ const Main = ({
         type={botTrustRequest?.type}
         shouldRequestWriteAccess={botTrustRequest?.shouldRequestWriteAccess}
       />
-      <AttachBotRecipientPicker requestedAttachBotInChat={requestedAttachBotInChat} />
-      <MessageListHistoryHandler />
-      <PremiumMainModal isOpen={isPremiumModalOpen} />
-      <GiveawayModal isOpen={isGiveawayModalOpen} />
-      <StarsGiftingPickerModal isOpen={isStarsGiftingPickerModal} />
-      <PremiumLimitReachedModal limit={limitReached} />
-      <PaymentModal isOpen={isPaymentModalOpen} onClose={closePaymentModal} />
-      <ReceiptModal isOpen={isReceiptModalOpen} onClose={clearReceipt} />
-      <DeleteFolderDialog folder={deleteFolderDialog} />
-      <ReactionPicker isOpen={isReactionPickerOpen} />
-      <DeleteMessageModal isOpen={isDeleteMessageModalOpen} />
-    </div>
-  );
-};
-
-export default memo(withGlobal<OwnProps>(
-  (global, { isMobile }): Complete<StateProps> => {
-    const {
-      currentUserId,
-    } = global;
-
     const {
       botTrustRequest,
       requestedAttachBotInChat,
@@ -634,6 +634,32 @@ export default memo(withGlobal<OwnProps>(
       newContact,
       ratingPhoneCall,
       premiumModal,
+      adminPanel,
+      giveawayModal,
+      deleteMessageModal,
+      starsGiftingPickerModal,
+      isMasterTab,
+      payment,
+      limitReachedModal,
+      deleteFolderDialogModal,
+    } = selectTabState(global);
+      premiumModal,
+      adminPanel,
+      giveawayModal,hBotInChat,
+      requestedDraft,
+      safeLinkModalUrl,
+      openedStickerSetShortName,
+      openedCustomEmojiSetIds,
+      shouldSkipHistoryAnimations,
+      openedGame,
+      isLeftColumnShown,
+      historyCalendarSelectedAt,
+      notifications,
+      dialogs,
+      newContact,
+      ratingPhoneCall,
+      premiumModal,
+      adminPanel,
       giveawayModal,
       deleteMessageModal,
       starsGiftingPickerModal,
@@ -657,18 +683,20 @@ export default memo(withGlobal<OwnProps>(
     return {
       currentUserId,
       isLeftColumnOpen: isLeftColumnShown,
-      isMiddleColumnOpen: Boolean(chatId),
-      isRightColumnOpen: selectIsRightColumnShown(global, isMobile),
-      isMediaViewerOpen: selectIsMediaViewerOpen(global),
-      isStoryViewerOpen: selectIsStoryViewerOpen(global),
-      isForwardModalOpen: selectIsForwardModalOpen(global),
-      isReactionPickerOpen: selectIsReactionPickerOpen(global),
+      botTrustRequestBot: botTrustRequest && selectUser(global, botTrustRequest.botId),
+      requestedAttachBotInChat,
+      isCurrentUserPremium: selectIsCurrentUserPremium(global),
+      isPremiumModalOpen: premiumModal?.isOpen,
+      isAdminPanelOpen: adminPanel?.isOpen,
+      isGiveawayModalOpen: giveawayModal?.isOpen,
+      isDeleteMessageModalOpen: Boolean(deleteMessageModal),l),
       hasNotifications: Boolean(notifications.length),
       hasDialogs: Boolean(dialogs.length),
-      safeLinkModalUrl,
-      isHistoryCalendarOpen: Boolean(historyCalendarSelectedAt),
-      shouldSkipHistoryAnimations,
-      openedStickerSetShortName,
+      requestedAttachBotInChat,
+      isCurrentUserPremium: selectIsCurrentUserPremium(global),
+      isPremiumModalOpen: premiumModal?.isOpen,
+      isAdminPanelOpen: adminPanel?.isOpen,
+      isGiveawayModalOpen: giveawayModal?.isOpen,
       openedCustomEmojiSetIds,
       isServiceChatReady: selectIsServiceChatReady(global),
       activeGroupCallId: isMasterTab ? global.groupCalls.activeGroupCallId : undefined,
@@ -687,6 +715,7 @@ export default memo(withGlobal<OwnProps>(
       requestedAttachBotInChat,
       isCurrentUserPremium: selectIsCurrentUserPremium(global),
       isPremiumModalOpen: premiumModal?.isOpen,
+      isAdminPanelOpen: adminPanel?.isOpen,
       isGiveawayModalOpen: giveawayModal?.isOpen,
       isDeleteMessageModalOpen: Boolean(deleteMessageModal),
       isStarsGiftingPickerModal: starsGiftingPickerModal?.isOpen,

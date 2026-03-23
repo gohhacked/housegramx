@@ -428,7 +428,25 @@ const MessageContextMenu: FC<OwnProps> = ({
         {canUnfaveSticker && (
           <MenuItem icon="favorite" onClick={onUnfaveSticker}>{oldLang('Stickers.RemoveFromFavorites')}</MenuItem>
         )}
-        {canTranslate && <MenuItem icon="language" onClick={onTranslate}>{oldLang('TranslateMessage')}</MenuItem>}
+        {canTranslate && (
+          <MenuItem icon="language" onClick={onTranslate}>
+            <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              {oldLang('TranslateMessage')}
+              <span style={{
+                background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                color: 'white',
+                fontSize: '0.65rem',
+                fontWeight: 700,
+                padding: '2px 6px',
+                borderRadius: '4px',
+                letterSpacing: '0.5px',
+              }}
+              >
+                NEW
+              </span>
+            </span>
+          </MenuItem>
+        )}
         {canShowOriginal && (
           <MenuItem icon="language" onClick={onShowOriginal}>
             {oldLang('ShowOriginalButton')}
