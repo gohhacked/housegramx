@@ -132,3 +132,17 @@
 html::view-transition-group(open-menu-bubble) {
   z-index: var(--z-portal-menu);
 }
+
+// Premium button styles in menu
+.Menu .bubble {
+  .premium-button-wrapper {
+    padding: 12px 8px;
+    display: flex;
+    justify-content: center;
+    
+    .premium-beta-button {
+      width: calc(100% - 16px);
+      margin: 0 8px;
+    }
+  }
+}
