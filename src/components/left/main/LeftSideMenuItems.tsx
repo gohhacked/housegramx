@@ -167,9 +167,9 @@ const LeftSideMenuItems = ({
           🏠 HouseGramX
         </span>
       </MenuItem>
-      <MenuItem className="premium-menu-item">
+      <div className="premium-button-wrapper">
         <PremiumBetaButton />
-      </MenuItem>
+      </div>
       <MenuSeparator />
 
       {/* Account Section */}
