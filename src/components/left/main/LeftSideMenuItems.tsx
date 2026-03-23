@@ -167,9 +167,9 @@ const LeftSideMenuItems = ({
           🏠 HouseGramX
         </span>
       </MenuItem>
-      <div style={{ padding: '8px 16px' }}>
+      <MenuItem className="premium-menu-item">
         <PremiumBetaButton />
-      </div>
+      </MenuItem>
       <MenuSeparator />
 
       {/* Account Section */}
