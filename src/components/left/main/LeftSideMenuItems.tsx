@@ -40,6 +40,7 @@ import MenuItem from '../../ui/MenuItem';
 import MenuSeparator from '../../ui/MenuSeparator';
 import Switcher from '../../ui/Switcher';
 import Toggle from '../../ui/Toggle';
+import ThemeCustomizerButton from '../../common/ThemeCustomizerButton';
 import AccountMenuItems from './AccountMenuItems';
 
 type OwnProps = {
@@ -166,6 +167,8 @@ const LeftSideMenuItems = ({
           🏠 HouseGramX
         </span>
       </MenuItem>
+      <MenuSeparator />
+      <ThemeCustomizerButton />
       <MenuSeparator />
 
       {/* Account Section */}

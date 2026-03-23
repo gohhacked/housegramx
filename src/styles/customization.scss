@@ -1,0 +1,109 @@
+// Compact Mode
+body.compact-mode {
+  --message-spacing: 4px;
+  --chat-item-height: 56px;
+  --padding-base: 8px;
+
+  .Chat {
+    padding: 4px 8px;
+  }
+
+  .Message {
+    margin-bottom: 4px;
+    padding: 6px 12px;
+  }
+
+  .LeftColumn {
+    .chat-item {
+      height: 56px;
+      padding: 8px 12px;
+    }
+  }
+
+  .MessageInput {
+    padding: 8px;
+  }
+}
+
+// Focus Mode
+body.focus-mode {
+  .LeftMainHeader {
+    .HeaderMenuButton,
+    .SearchButton {
+      display: none;
+    }
+  }
+
+  .RightColumn {
+    display: none !important;
+  }
+
+  .ChatFolders {
+    display: none;
+  }
+
+  .MiddleHeader {
+    .HeaderActions {
+      .Button:not(.back-button) {
+        display: none;
+      }
+    }
+  }
+
+  .Composer {
+    .AttachMenu,
+    .SymbolMenuButton,
+    .BotCommandMenu {
+      display: none;
+    }
+  }
+}
+
+// Custom fonts
+body {
+  &[data-font="inter"] {
+    --font-family: Inter, sans-serif;
+  }
+
+  &[data-font="poppins"] {
+    --font-family: Poppins, sans-serif;
+  }
+
+  &[data-font="montserrat"] {
+    --font-family: Montserrat, sans-serif;
+  }
+
+  &[data-font="opensans"] {
+    --font-family: "Open Sans", sans-serif;
+  }
+
+  &[data-font="lato"] {
+    --font-family: Lato, sans-serif;
+  }
+
+  &[data-font="raleway"] {
+    --font-family: Raleway, sans-serif;
+  }
+
+  &[data-font="nunito"] {
+    --font-family: Nunito, sans-serif;
+  }
+}
+
+// Chat background container
+.chat-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+
+  &.animated-background {
+    canvas {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
