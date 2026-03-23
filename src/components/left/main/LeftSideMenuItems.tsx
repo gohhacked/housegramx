@@ -168,12 +168,12 @@ const LeftSideMenuItems = ({
       </MenuItem>
       <MenuSeparator />
       <MenuItem
-        icon="premium"
+        icon="star"
         onClick={() => {
-          alert('Premium Beta - функция в разработке');
+          alert('ТЕСТ - Кнопка работает!');
         }}
       >
-        ⭐ Premium Beta
+        🌟 ТЕСТ PREMIUM
       </MenuItem>
       <MenuSeparator />
 
