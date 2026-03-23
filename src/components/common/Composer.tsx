@@ -2404,6 +2404,7 @@ const Composer: FC<OwnProps & StateProps> = ({
           'main-button',
           !isReady && 'not-ready',
           activeVoiceRecording && 'recording',
+          hasWebPagePreview && mainButtonState === MainButtonState.Send && 'send-icon-home',
         )}
         disabled={areVoiceMessagesNotAllowed}
         allowDisabledClick

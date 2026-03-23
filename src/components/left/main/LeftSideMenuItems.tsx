@@ -40,6 +40,7 @@ import MenuItem from '../../ui/MenuItem';
 import MenuSeparator from '../../ui/MenuSeparator';
 import Switcher from '../../ui/Switcher';
 import Toggle from '../../ui/Toggle';
+import PremiumBetaButton from '../../common/PremiumBetaButton';
 import AccountMenuItems from './AccountMenuItems';
 
 type OwnProps = {
@@ -166,6 +167,9 @@ const LeftSideMenuItems = ({
           🏠 HouseGramX
         </span>
       </MenuItem>
+      <div style={{ padding: '8px 16px' }}>
+        <PremiumBetaButton />
+      </div>
       <MenuSeparator />
 
       {/* Account Section */}

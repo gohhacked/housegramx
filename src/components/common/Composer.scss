@@ -185,6 +185,20 @@
       .icon-schedule {
         animation: hide-icon 0.4s forwards ease-out;
       }
+
+      &.send-icon-home .icon-send::before {
+        content: "🏠";
+        position: absolute;
+        font-size: 1.5rem;
+        line-height: 1;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+      }
+
+      &.send-icon-home .icon-send {
+        color: transparent;
+      }
     }
 
     &.schedule {
