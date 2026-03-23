@@ -40,6 +40,7 @@ import MenuItem from '../../ui/MenuItem';
 import MenuSeparator from '../../ui/MenuSeparator';
 import Switcher from '../../ui/Switcher';
 import Toggle from '../../ui/Toggle';
+import PremiumBetaButton from '../../common/PremiumBetaButton';
 import AccountMenuItems from './AccountMenuItems';
 
 type OwnProps = {
@@ -167,14 +168,7 @@ const LeftSideMenuItems = ({
         </span>
       </MenuItem>
       <MenuSeparator />
-      <MenuItem
-        icon="star"
-        onClick={() => {
-          alert('ТЕСТ - Кнопка работает!');
-        }}
-      >
-        🌟 ТЕСТ PREMIUM
-      </MenuItem>
+      <PremiumBetaButton />
       <MenuSeparator />
 
       {/* Account Section */}

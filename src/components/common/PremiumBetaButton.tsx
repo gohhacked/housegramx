@@ -12,11 +12,15 @@ const PremiumBetaButton: FC = () => {
   const status = getPremiumStatus();
   const daysRemaining = getTrialDaysRemaining();
 
+  const handleClick = () => {
+    setIsModalOpen(true);
+  };
+
   return (
     <>
       <MenuItem
         icon="premium"
-        onClick={() => setIsModalOpen(true)}
+        onClick={handleClick}
       >
         <span style={{
           background: status.isActive 
@@ -27,7 +31,7 @@ const PremiumBetaButton: FC = () => {
           fontWeight: 600,
         } as React.CSSProperties}
         >
-          ⭐ {status.isActive ? `Premium (${daysRemaining}д)` : 'Premium Beta'}
+          {status.isActive ? `⭐ Premium (${daysRemaining}д)` : '⭐ Premium Beta'}
         </span>
       </MenuItem>
 
