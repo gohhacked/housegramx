@@ -1,5 +1,5 @@
 {
-  "buildCommand": "npm run build",
+  "buildCommand": "npx webpack --mode production",
   "outputDirectory": "dist",
   "installCommand": "npm ci --prefer-offline --no-audit",
   "headers": [
