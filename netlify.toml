@@ -1,5 +1,5 @@
 [build]
-  command = "echo 'Deploy ready'"
+  command = "npx webpack --mode production"
   publish = "dist"
 
 [build.environment]
