@@ -1,0 +1,26 @@
+services:
+  - type: web
+    name: housegramx
+    env: node
+    region: oregon
+    plan: free
+    
+    buildCommand: |
+      npm ci --prefer-offline --no-audit && \
+      npm run build
+    
+    startCommand: npm start
+    
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: NODE_OPTIONS
+        value: --max-old-space-size=2048
+      - key: NPM_CONFIG_PRODUCTION
+        value: "true"
+    
+    autoDeploy: true
+    
+    healthCheckPath: /
+    
+    preDeployCommand: npm run build

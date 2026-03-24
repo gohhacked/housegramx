@@ -14,6 +14,8 @@
     "build:mocked": "cross-env APP_ENV=test APP_MOCKED_CLIENT=1 npm run build:dev",
     "build:production": "echo 'Using pre-built dist'",
     "vercel-build": "npx webpack",
+    "render-build": "npm ci --prefer-offline && npx webpack --mode production",
+    "render-deploy": "git add -A && git commit -m '🚀 Auto-deploy to Render' --no-verify && git push",
     "web:release:production": "npm i && npm run build:production && git add -A && git commit -a -m '[Build]' --no-verify && git push",
     "tauri": "tauri",
     "tauri:dev": "tauri dev",
