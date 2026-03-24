@@ -8,14 +8,6 @@ import {
 import { addExtraClass } from '../../lib/teact/teact-dom';
 import { getActions, getGlobal, withGlobal } from '../../global';
 
-import {
-  beginHeavyAnimation,
-  memo, useEffect, useLayoutEffect,
-  useRef, useState,
-} from '../../lib/teact/teact';
-import { addExtraClass } from '../../lib/teact/teact-dom';
-import { getActions, getGlobal, withGlobal } from '../../global';
-
 import type { ApiChatFolder, ApiLimitTypeWithModal, ApiUser } from '../../api/types';
 import type { TabState } from '../../global/types';
 
