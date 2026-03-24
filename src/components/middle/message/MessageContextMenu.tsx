@@ -428,7 +428,6 @@ const MessageContextMenu: FC<OwnProps> = ({
         {canUnfaveSticker && (
           <MenuItem icon="favorite" onClick={onUnfaveSticker}>{oldLang('Stickers.RemoveFromFavorites')}</MenuItem>
         )}
-        {canTranslate && <MenuItem icon="language" onClick={onTranslate}>{oldLang('TranslateMessage')}</MenuItem>}
         {canShowOriginal && (
           <MenuItem icon="language" onClick={onShowOriginal}>
             {oldLang('ShowOriginalButton')}
@@ -436,11 +435,6 @@ const MessageContextMenu: FC<OwnProps> = ({
         )}
         {canSelectLanguage && (
           <MenuItem icon="web" onClick={onSelectLanguage}>{oldLang('lng_settings_change_lang')}</MenuItem>
-        )}
-        {canCorrectText && (
-          <MenuItem icon="edit" onClick={onCorrectText}>
-            Correct Text with AI
-          </MenuItem>
         )}
         {copyOptions.map((option) => (
           <MenuItem
