@@ -78,22 +78,11 @@ import AttachBotRecipientPicker from './AttachBotRecipientPicker.async';
 import BotTrustModal from './BotTrustModal.async';
 import DeleteFolderDialog from './DeleteFolderDialog.async';
 import Dialogs from './Dialogs.async';
-import PremiumLimitReachedModal from './premium/common/PremiumLimitReachedModal.async';
-import GiveawayModal from './premium/GiveawayModal.async';
-import PremiumMainModal from './premium/PremiumMainModal.async';
 import AdminPanel from '../admin/AdminPanel.async';
-import StarsGiftingPickerModal from './premium/StarsGiftingPickerModal.async';
-import SafeLinkModal from './SafeLinkModal.async';rsGiftingPickerModal.async';
-import SafeLinkModal from './SafeLinkModal.async';rsGiftingPickerModal.async';
+import SafeLinkModal from './SafeLinkModal.async';
 import HistoryCalendar from './HistoryCalendar.async';
 import NewContactModal from './NewContactModal.async';
 import Notifications from './Notifications.async';
-import PremiumLimitReachedModal from './premium/common/PremiumLimitReachedModal.async';
-import GiveawayModal from './premium/GiveawayModal.async';
-import PremiumMainModal from './premium/PremiumMainModal.async';
-import AdminPanel from '../admin/AdminPanel.async';
-import StarsGiftingPickerModal from './premium/StarsGiftingPickerModal.async';
-import SafeLinkModal from './SafeLinkModal.async';
 import ConfettiContainer from './visualEffects/ConfettiContainer';
 import SnapEffectContainer from './visualEffects/SnapEffectContainer';
 import WaveContainer from './visualEffects/WaveContainer';
@@ -591,17 +580,8 @@ const Main = ({
       <ActiveCallHeader isActive={Boolean(activeGroupCallId || isPhoneCallActive)} />
       <AttachBotRecipientPicker requestedAttachBotInChat={requestedAttachBotInChat} />
       <MessageListHistoryHandler />
-      <PremiumMainModal isOpen={isPremiumModalOpen} />
       <AdminPanel isOpen={isAdminPanelOpen} />
-      <GiveawayModal isOpen={isGiveawayModalOpen} />
-      />
       <GameModal openedGame={openedGame} gameTitle={gameTitle} />
-      <AttachBotRecipientPicker requestedAttachBotInChat={requestedAttachBotInChat} />
-      <MessageListHistoryHandler />
-      <PremiumMainModal isOpen={isPremiumModalOpen} />
-      <AdminPanel isOpen={isAdminPanelOpen} />
-      <GiveawayModal isOpen={isGiveawayModalOpen} />
-      <GiveawayModal isOpen={isGiveawayModalOpen} />
       <PhoneCall isActive={isPhoneCallActive} />
       <UnreadCount isForAppBadge />
       <RatePhoneCallModal isOpen={isRatePhoneCallModalOpen} />
