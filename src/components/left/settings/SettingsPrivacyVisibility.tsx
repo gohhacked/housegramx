@@ -17,7 +17,6 @@ import Icon from '../../common/icons/Icon';
 import ListItem from '../../ui/ListItem';
 import RadioGroup from '../../ui/RadioGroup';
 import Switcher from '../../ui/Switcher';
-import PremiumStatusItem from './PremiumStatusItem';
 import PrivacyLockedOption from './PrivacyLockedOption';
 import SettingsAcceptedGift from './SettingsAcceptedGift';
 import SettingsPrivacyLastSeen from './SettingsPrivacyLastSeen';
@@ -396,7 +395,6 @@ function PrivacySubsection({
           )}
         </div>
       )}
-      {isPremiumRequired && <PremiumStatusItem />}
     </>
   );
 }

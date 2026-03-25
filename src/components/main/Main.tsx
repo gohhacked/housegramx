@@ -614,10 +614,6 @@ const Main = ({
       payment,
       limitReachedModal,
       deleteFolderDialogModal,
-    } = selectTabState(global);
-      premiumModal,
-      adminPanel,
-      giveawayModal,hBotInChat,
       requestedDraft,
       safeLinkModalUrl,
       openedStickerSetShortName,
