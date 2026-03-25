@@ -173,16 +173,6 @@ const SettingsMain: FC<OwnProps & StateProps> = ({
         </ListItem>
       </div>
       <div className="settings-main-menu">
-        {canBuyPremium && (
-          <ListItem
-            leftElement={<StarIcon className="icon ListItem-main-icon" type="premium" size="big" />}
-            narrow
-
-            onClick={() => openPremiumModal()}
-          >
-            {lang('TelegramPremium')}
-          </ListItem>
-        )}
         <ListItem
           leftElement={<StarIcon className="icon ListItem-main-icon" type="gold" size="big" />}
           narrow
