@@ -6,17 +6,21 @@ services:
     plan: free
     
     buildCommand: |
-      npm ci --prefer-offline --no-audit && \
-      npx webpack --mode production
+      npm ci --prefer-offline --no-audit --legacy-peer-deps && \
+      NODE_ENV=production npx webpack --mode production --no-stats
     
-    startCommand: npx serve -s dist -l 10000
+    startCommand: npx serve -s dist -l 10000 -n
     
     envVars:
       - key: NODE_ENV
         value: production
       - key: NODE_OPTIONS
-        value: --max-old-space-size=2048
+        value: --max-old-space-size=4096
       - key: NPM_CONFIG_PRODUCTION
+        value: "true"
+      - key: NPM_CONFIG_LOGLEVEL
+        value: error
+      - key: CI
         value: "true"
     
     autoDeploy: true
